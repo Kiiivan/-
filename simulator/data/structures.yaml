@@ -1,0 +1,171 @@
+# 社会学人生模拟器 - 宏观社会结构定义（精简版）
+# 保留12个核心社会结构
+
+structures:
+  # ==================== 涂尔干：社会团结类型 ====================
+  - id: mechanical_solidarity
+    name: 机械团结社会
+    short_name: 机械团结
+    description: 基于相似性的集体意识联结，成员高度同质，传统规范主导
+    theorist: 涂尔干
+    emoji: "🔗"
+    effects:
+      anomie_level: -0.3
+      social_mobility: -0.4
+      traditional_action_weight: 0.4
+    interactions:
+      - target: organic_solidarity
+        effect: -0.8
+
+  - id: organic_solidarity
+    name: 有机团结社会
+    short_name: 有机团结
+    description: 基于分工协作的契约性联结，成员异质性高
+    theorist: 涂尔干
+    emoji: "🔄"
+    effects:
+      anomie_level: +0.2
+      social_mobility: +0.3
+      instrumental_rational_weight: 0.3
+    interactions:
+      - target: mechanical_solidarity
+        effect: -0.8
+
+  # ==================== 韦伯：理性化 ====================
+  - id: rationalization
+    name: 理性化进程
+    short_name: 理性化
+    description: 手段-目的计算支配社会生活，官僚制主导
+    theorist: 韦伯
+    emoji: "⚙️"
+    effects:
+      instrumental_rational_weight: 0.4
+      bureaucracy_level: 0.4
+    interactions:
+      - target: disenchantment
+        effect: +0.5
+
+  - id: disenchantment
+    name: 祛魅世界
+    short_name: 祛魅
+    description: 宗教-魔法世界观被理性-科学取代
+    theorist: 韦伯
+    emoji: "🌫️"
+    effects:
+      value_rational_weight: -0.2
+      individualization: 0.2
+
+  # ==================== 布迪厄：资本与场域 ====================
+  - id: field_pressure_high
+    name: 高压场域
+    short_name: 高压场域
+    description: 场域内竞争激烈，资本稀缺
+    theorist: 布迪厄
+    emoji: "🏛️"
+    effects:
+      field_pressure: 0.5
+      stress_level: 0.3
+    interactions:
+      - target: cultural_capital_low
+        effect: -0.4
+
+  - id: cultural_capital_high
+    name: 高文化资本环境
+    short_name: 高文化资本
+    description: 教育资源丰富，文化氛围浓厚
+    theorist: 布迪厄
+    emoji: "📚"
+    effects:
+      cultural_capital: 0.4
+      education_attainment: 0.3
+    interactions:
+      - target: field_pressure_high
+        effect: +0.3
+
+  - id: cultural_capital_low
+    name: 低文化资本环境
+    short_name: 低文化资本
+    description: 教育资源匮乏，文化氛围淡薄
+    theorist: 布迪厄
+    emoji: "📖"
+    effects:
+      cultural_capital: -0.3
+      field_pressure_resistance: -0.3
+
+  # ==================== 福柯：规训与权力 ====================
+  - id: disciplinary_power
+    name: 规训社会
+    short_name: 规训社会
+    description: 权力通过规范化技术渗透日常生活
+    theorist: 福柯
+    emoji: "👁️"
+    effects:
+      surveillance_level: 0.4
+      self_discipline: 0.3
+    interactions:
+      - target: impression_management
+        effect: +0.5
+
+  - id: panopticism
+    name: 全景敞视主义
+    short_name: 全景敞视
+    description: 监视不可见但无处不在，被监视者内化监视
+    theorist: 福柯
+    emoji: "🏥"
+    effects:
+      surveillance_level: 0.5
+      privacy_level: -0.4
+
+  # ==================== 费孝通：乡土中国 ====================
+  - id: rural_china
+    name: 乡土社会
+    short_name: 乡土性
+    description: 土地束缚、熟人社会、差序格局
+    theorist: 费孝通
+    emoji: "🌾"
+    effects:
+      traditional_action_weight: 0.4
+      community_integration: 0.4
+    interactions:
+      - target: urbanization
+        effect: -0.5
+
+  # ==================== 贝克：风险社会 ====================
+  - id: risk_society
+    name: 风险社会
+    short_name: 风险社会
+    description: 工业现代化制造新型风险
+    theorist: 贝克
+    emoji: "⚠️"
+    effects:
+      risk_exposure: 0.4
+      anomie_level: +0.2
+    interactions:
+      - target: individualization
+        effect: +0.3
+
+  # ==================== 齐美尔：大都市 ====================
+  - id: metropolis
+    name: 大都市
+    short_name: 大都市
+    description: 都市生活的理智态度与货币文化
+    theorist: 齐美尔
+    emoji: "🌆"
+    effects:
+      blasé_attitude: 0.3
+      instrumental_rational_weight: 0.3
+      social_isolation: 0.2
+    interactions:
+      - target: stranger_status
+        effect: +0.4
+
+  - id: stranger_status
+    name: 陌生人处境
+    short_name: 陌生人
+    description: 既不完全属于群体内部、又不完全处于外部
+    theorist: 齐美尔
+    emoji: "🌐"
+    effects:
+      social_isolation: 0.3
+      objectification: 0.3
+      mobility: 0.3
