@@ -1,0 +1,12 @@
+var nodes = new vis.DataSet([
+            {id: "mechanical_solidarity", label: "🔗 机械团结", color: "#e74c3c", font: {color: "#333", size: 13, face: "Microsoft YaHei"}, borderWidth: 2, borderWidthSelected: 4, shadow: true},
+            {id: "organic_solidarity", label: "🔄 有机团结", color: "#e74c3c", font: {color: "#333", size: 13, face: "Microsoft YaHei"}, borderWidth: 2, borderWidthSelected: 4, shadow: true},
+            {id: "rationalization", label: "⚙️ 理性化", color: "#3498db", font: {color: "#333", size: 13, face: "Microsoft YaHei"}, borderWidth: 2, borderWidthSelected: 4, shadow: true},
+            {id: "disenchantment", label: "🌫 祛魅", color: "#3498db", font: {color: "#333", size: 13, face: "Microsoft YaHei"}, borderWidth: 2, borderWidthSelected: 4, shadow: true},
+            {id: "field_pressure_high", label: "🏛 高压场域", color: "#9b59b6", font: {color: "#333", size: 13, face: "Microsoft YaHei"}, borderWidth: 2, borderWidthSelected: 4, shadow: true},
+            {id: "cultural_capital_high", label: "📚 高文化资本", color: "#9b59b6", font: {color: "#333", size: 13, face: "Microsoft YaHei"}, borderWidth: 2, borderWidthSelected: 4, shadow: true},
+            {id: "cultural_capital_low", label: "📖 低文化资本", color: "#9b59b6", font: {color: "#333", size: 13, face: "Microsoft YaHei"}, borderWidth: 2, borderWidthSelected: 4, shadow: true},
+            {id: "disciplinary_power", label: "👁 规训社会", color: "#e67e22", font: {color: "#333", size: 13, face: "Microsoft YaHei"}, borderWidth: 2, borderWidthSelected: 4, shadow: true},
+            {id: "panopticism", label: "🏥 全景敞视", color: "#e67e22", font: {color: "#333", size: 13, face: "Microsoft YaHei"}, borderWidth: 2, borderWidthSelected: 4, shadow: true},
+            {id: "rural_china", label: "🌾 乡土社会", color: "#27ae60", font: {color: "#333", size: 13, face: "Microsoft YaHei"}, borderWidth: 2, borderWidthSelected: 4, shadow: true},
+            {id: "risk_society", label: "⚠️ 风险社会", color: "#f39c12", font: {color: "#333", size: 13, face: "Micr

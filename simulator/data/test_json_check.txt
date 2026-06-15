@@ -1,0 +1,3 @@
+e0: fromName=机械团结, fromTheorist=涂尔干
+e1: fromName=理性化, fromTheorist=韦伯
+e2: fromName=高压场域, fromTheorist=布迪厄
