@@ -1,0 +1,13 @@
+width: 1 + Math.abs(mm.weight) * 3 });
+                });
+                resetPanel();
+                return;
+            }
+
+            selectedEdgeId = eid;
+            dimAllEdges();
+            highlightEdge(eid);
+            showEdgeInfo(eid);
+        });
+    })();
+    </script</body></html>

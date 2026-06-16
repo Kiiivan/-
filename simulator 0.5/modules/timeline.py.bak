@@ -1,0 +1,274 @@
+"""
+年表生成与渲染
+将人生事件转换为可读的文本和可视化格式
+"""
+import os
+from typing import Dict, List, Any, Optional
+from datetime import datetime
+
+
+class TimelineRenderer:
+    """人生年表渲染器"""
+
+    def __init__(self):
+        self.stage_emojis = {
+            "童年": "🧒",
+            "青少年": "👦",
+            "青年": "👨",
+            "中年": "👨‍💼",
+            "中老年": "🧓",
+            "老年": "👴",
+        }
+
+    def render_timeline_text(
+        self,
+        timeline: List[Dict[str, Any]],
+        character: Dict[str, Any]
+    ) -> str:
+        """
+        渲染时间线为Markdown文本
+
+        Args:
+            timeline: 人生事件列表
+            character: 人物对象
+
+        Returns:
+            Markdown格式的时间线文本
+        """
+        lines = [
+            f"# 📜 {character['name']}的人生年表\n",
+            f"**出生年份**：约{character['birth_year']}年 | "
+            f"**性别**：{character['gender']} | "
+            f"**出生地**：{character['birth_place']}\n",
+            "---\n"
+        ]
+
+        if not timeline:
+            lines.append("*（模拟结果显示该人物的一生较为平淡，没有显著的大事件）*")
+            return "\n".join(lines)
+
+        # 按阶段分组
+        stages = {}
+        for event in timeline:
+            stage = event.get("stage", "未知")
+            if stage not in stages:
+                stages[stage] = []
+            stages[stage].append(event)
+
+        # 渲染每个阶段
+        for stage_name, stage_emoji in self.stage_emojis.items():
+            if stage_name in stages:
+                lines.append(f"## {stage_emoji} {stage_name}\n")
+                for event in stages[stage_name]:
+                    lines.append(self._render_event_text(event))
+                lines.append("")
+
+        return "\n".join(lines)
+
+    def _render_event_text(self, event: Dict[str, Any]) -> str:
+        """渲染单个事件为文本"""
+        cat = event.get("category", "")
+        "🟢" if cat == "rural_china" else ("🔴" if cat == "mechanical_solidarity" else ("🔵" if cat == "organic_solidarity" else ("🟣" if cat == "metropolis" else ("🟪" if cat == "stranger_status" else ("🟡" if cat == "risk_society" else ("⚫" if cat == "rationalization" else ("⚪" if cat == "disenchantment" else ("🟠" if cat == "field_pressure_high" else ("🟤" if cat == "cultural_capital_high" else ("◑" if cat == "cultural_capital_low" else ("🔶" if cat == "disciplinary_power" else ("👁" if cat == "panopticism" else ""))))))))))))
+        lines = [
+            f"### {event['action_emoji']} {event['name']}（{event['age']}岁）{struct_marker}\n",
+            f"{event['description']}\n",
+        ]
+
+        return "\n".join(lines)
+
+    def render_timeline_with_reading(
+        self,
+        timeline: List[Dict[str, Any]],
+        character: Dict[str, Any],
+        selected_structures: List[str]
+    ) -> str:
+        """
+        渲染带社会学解读的时间线
+
+        Args:
+            timeline: 人生事件列表
+            character: 人物对象
+            selected_structures: 选中的社会结构
+
+        Returns:
+            带解读的Markdown文本
+        """
+        lines = [
+            f"# 📜 {character['name']}的人生年表\n",
+            f"**出生年份**：约{character['birth_year']}年\n",
+            f"**性别**：{character.get('gender_display', character['gender'])} | "
+            f"**出生地**：{character.get('birth_place_display', character['birth_place'])}\n",
+            f"**时代背景**：{character.get('era_display', character['era'])}\n",
+            f"**父母阶层**：{character.get('parent_class_display', character['parent_class'])}\n",
+            "---\n",
+            "## 社会结构背景\n",
+            f"模拟的社会结构：{', '.join(selected_structures)}\n",
+            "---\n"
+        ]
+
+        if not timeline:
+            lines.append("*（模拟结果显示该人物的一生较为平淡，没有显著的大事件）*")
+            return "\n".join(lines)
+
+        # 按阶段分组
+        stages = {}
+        for event in timeline:
+            stage = event.get("stage", "未知")
+            if stage not in stages:
+                stages[stage] = []
+            stages[stage].append(event)
+
+        # 渲染每个阶段
+        for stage_name, stage_emoji in self.stage_emojis.items():
+            if stage_name in stages:
+                lines.append(f"## {stage_emoji} {stage_name}\n")
+                for event in stages[stage_name]:
+                    lines.append(self._render_event_with_reading(event))
+                lines.append("")
+
+        return "\n".join(lines)
+
+    def _render_event_with_reading(self, event: Dict[str, Any]) -> str:
+        """渲染带社会学解读的单个事件"""
+        cat = event.get("category", "")
+        "🟢" if cat == "rural_china" else ("🔴" if cat == "mechanical_solidarity" else ("🔵" if cat == "organic_solidarity" else ("🟣" if cat == "metropolis" else ("🟪" if cat == "stranger_status" else ("🟡" if cat == "risk_society" else ("⚫" if cat == "rationalization" else ("⚪" if cat == "disenchantment" else ("🟠" if cat == "field_pressure_high" else ("🟤" if cat == "cultural_capital_high" else ("◑" if cat == "cultural_capital_low" else ("🔶" if cat == "disciplinary_power" else ("👁" if cat == "panopticism" else ""))))))))))))
+        lines = [
+            f"### {event['action_emoji']} **{event['name']}**（{event['age']}岁）{struct_marker}\n",
+            f"{event['description']}\n",
+        ]
+
+        # 添加社会学解读
+        reading = event.get("sociological_reading", "")
+        if reading:
+            lines.append(f"\n> 📚 **社会学解读**：{reading.strip()}\n")
+
+        return "\n".join(lines)
+
+    def render_compact_timeline(
+        self,
+        timeline: List[Dict[str, Any]],
+        character: Dict[str, Any]
+    ) -> str:
+        """
+        渲染紧凑型时间线（适合狭小空间）
+
+        Args:
+            timeline: 人生事件列表
+            character: 人物对象
+
+        Returns:
+            紧凑的Markdown文本
+        """
+        lines = [
+            f"### 📜 {character['name']}的人生轨迹\n"
+        ]
+
+        if not timeline:
+            lines.append("*一生平淡*\n")
+            return "\n".join(lines)
+
+        for event in timeline:
+            emoji = event.get("action_emoji", "📋")
+            cat = event.get("category", "")
+        "🟢" if cat == "rural_china" else ("🔴" if cat == "mechanical_solidarity" else ("🔵" if cat == "organic_solidarity" else ("🟣" if cat == "metropolis" else ("🟪" if cat == "stranger_status" else ("🟡" if cat == "risk_society" else ("⚫" if cat == "rationalization" else ("⚪" if cat == "disenchantment" else ("🟠" if cat == "field_pressure_high" else ("🟤" if cat == "cultural_capital_high" else ("◑" if cat == "cultural_capital_low" else ("🔶" if cat == "disciplinary_power" else ("👁" if cat == "panopticism" else ""))))))))))))
+            lines.append(
+                f"- **{event['age']}岁** {emoji} {event['name']}{struct_marker}"
+            )
+
+        return "\n".join(lines)
+
+    def render_event_cards(
+        self,
+        timeline: List[Dict[str, Any]]
+    ) -> List[Dict[str, Any]]:
+        """
+        渲染为卡片数据（用于Streamlit展示）
+
+        Returns:
+            卡片数据列表
+        """
+        cards = []
+
+        for event in timeline:
+            card = {
+                "age": event["age"],
+                "emoji": event.get("action_emoji", "📋"),
+                "title": event["name"],
+                "description": event["description"],
+                "stage": event.get("stage", ""),
+                "reading": event.get("sociological_reading", ""),
+                "primary_action": event.get("primary_action", ""),
+                "year": event.get("year", 0)
+            }
+            cards.append(card)
+
+        return cards
+
+    def render_summary_statistics(
+        self,
+        timeline: List[Dict[str, Any]],
+        metadata: Dict[str, Any]
+    ) -> str:
+        """
+        渲染统计摘要
+
+        Returns:
+            Markdown格式的统计信息
+        """
+        lines = [
+            "## 📊 人生统计\n",
+            f"- **总事件数**：{metadata.get('total_events', 0)}\n"
+        ]
+
+        # 阶段分布
+        stages = metadata.get("stages", {})
+        if stages:
+            lines.append("- **阶段分布**：")
+            for stage, count in stages.items():
+                lines.append(f"  - {stage}：{count}件事")
+            lines.append("")
+
+        # 主导行动类型
+        actions = metadata.get("dominant_actions", {})
+        if actions:
+            lines.append("- **行动类型**：")
+            for action, count in actions.items():
+                lines.append(f"  - {action}：{count}次")
+            lines.append("")
+
+        return "\n".join(lines)
+
+    def generate_life_story_text(
+        self,
+        timeline: List[Dict[str, Any]],
+        character: Dict[str, Any]
+    ) -> str:
+        """
+        生成连贯的人生故事文本（用于AI对话）
+
+        Returns:
+            人生故事文本
+        """
+        if not timeline:
+            return f"{character['name']}的一生平淡而安稳，没有经历太多大风大浪。"
+
+        story_lines = [f"{character['name']}出生于约{character['birth_year']}年。"]
+
+        for i, event in enumerate(timeline):
+            age = event["age"]
+            desc = event["description"]
+
+            if i == 0:
+                story_lines.append(f"在{age}岁时，{desc}")
+            elif i == len(timeline) - 1:
+                story_lines.append(f"到了{age}岁，{desc}")
+            else:
+                story_lines.append(f"{age}岁时，{desc}")
+
+        return "".join(story_lines) + "。"
+
+
+if __name__ == "__main__":
+    # 测试代码
+    renderer = TimelineRenderer()
+    print("渲染器测试完成")

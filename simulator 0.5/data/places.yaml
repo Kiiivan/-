@@ -1,0 +1,231 @@
+# 社会学人生模拟器 - 虚构出生地
+# 为人物提供多样化的出生地选择，每个地点关联不同的社会学特征
+
+places:
+  # ==================== 城市 ====================
+  cities:
+    - id: beijing
+      name: 北京
+      emoji: "🏛"
+      description: "首都，超大城市，政治文化中心"
+      region: north
+      population_size: megacity
+      social_features:
+        field_pressure: 0.4
+        cultural_capital: 0.4
+        rationalization: 0.4
+        stranger_status: 0.3
+        impression_management_society: 0.3
+      notable_for: ["北京大学城", "中关村科技园", "胡同文化"]
+      associated_theorists: [布迪厄, 费孝通]
+
+    - id: shanghai
+      name: 上海
+      emoji: "🌆"
+      description: "超大城市，金融中心，海派文化"
+      region: east
+      population_size: megacity
+      social_features:
+        rationalization: 0.5
+        metropolis: 0.4
+        instrumental_rational_weight: 0.3
+        money_culture: 0.4
+        stranger_status: 0.3
+      notable_for: ["外滩", "浦东新区", "石库门"]
+      associated_theorists: [齐美尔, 韦伯]
+
+    - id: guangzhou
+      name: 广州
+      emoji: "🏮"
+      description: "华南商业中心，粤语文化，改革开放前沿"
+      region: south
+      population_size: megacity
+      social_features:
+        instrumental_rational_weight: 0.3
+        market_oriented: 0.4
+        urbanization: 0.3
+        stranger_status: 0.2
+      notable_for: ["珠江新城", "城中村", "广交会"]
+      associated_theorists: [韦伯, 布迪厄]
+
+    - id: chengdu
+      name: 成都
+      emoji: "🐼"
+      description: "西南重镇，巴蜀文化，茶馆文化"
+      region: southwest
+      population_size: large
+      social_features:
+        cultural_capital: 0.2
+        social_capital: 0.2
+        affective_action_weight: 0.2
+        traditional_action_weight: 0.1
+        metropolis: 0.2
+      notable_for: ["宽窄巷子", "茶馆", "火锅文化"]
+      associated_theorists: [费孝通, 齐美尔]
+
+    - id: hangzhou
+      name: 杭州
+      emoji: "🏯"
+      description: "互联网经济中心，西湖文化"
+      region: east
+      population_size: large
+      social_features:
+        rationalization: 0.3
+        digital_surveillance: 0.3
+        cultural_capital: 0.3
+        metropolis: 0.3
+        instrumental_rational_weight: 0.2
+      notable_for: ["西湖", "阿里巴巴", "互联网小镇"]
+      associated_theorists: [韦伯, 齐美尔]
+
+    - id: nanjing
+      name: 南京
+      emoji: "🏺"
+      description: "六朝古都，高校林立，历史文化名城"
+      region: east
+      population_size: large
+      social_features:
+        cultural_capital: 0.4
+        education_opportunity: 0.4
+        traditional_action_weight: 0.2
+        metropolis: 0.2
+      notable_for: ["夫子庙", "南京大学", "秦淮河"]
+      associated_theorists: [费孝通, 布迪厄]
+
+  # ==================== 城镇 ====================
+  towns:
+    - id: yiwu
+      name: 义乌
+      emoji: "🛍"
+      description: "浙江小商品集散地，民营经济发达"
+      region: east
+      population_size: medium
+      social_features:
+        instrumental_rational_weight: 0.3
+        market_oriented: 0.4
+        social_mobility: 0.3
+        petit_bourgeois: 0.3
+        risk_society: 0.2
+      notable_for: ["小商品市场", "淘宝村"]
+      associated_theorists: [韦伯, 贝克]
+
+    - id: wenzhou
+      name: 温州
+      emoji: "📿"
+      description: "浙商文化，民营经济先驱"
+      region: east
+      population_size: medium
+      social_features:
+        instrumental_rational_weight: 0.4
+        market_oriented: 0.3
+        social_mobility: 0.3
+        guanxi_dependence: 0.2
+        petit_bourgeois: 0.3
+      notable_for: ["温州模式", "江南皮革厂"]
+      associated_theorists: [韦伯, 费孝通]
+
+    - id: dafeng
+      name: 大丰（江苏农村工业小镇）
+      emoji: "🏭"
+      description: "苏北农村工业小区，乡镇企业发达"
+      region: east
+      population_size: small
+      social_features:
+        rural_china: 0.3
+        market_oriented: 0.3
+        urbanization: 0.2
+        organic_solidarity: 0.2
+        social_mobility: 0.2
+      notable_for: ["乡镇企业", "苏南模式"]
+      associated_theorists: [费孝通, 涂尔干]
+
+  # ==================== 农村 ====================
+  rural_areas:
+    - id: sichuan_village
+      name: 四川农村
+      emoji: "🌾"
+      description: "四川盆地传统农村，丘陵地带"
+      region: southwest
+      population_size: village
+      social_features:
+        rural_china: 0.5
+        mechanical_solidarity: 0.3
+        differential_associate_pattern: 0.4
+        traditional_action_weight: 0.4
+        community_integration: 0.4
+        face_consciousness: 0.3
+      notable_for: ["天府之国", "麻将文化", "外出务工"]
+      associated_theorists: [费孝通, 涂尔干]
+
+    - id: northern_plain_village
+      name: 华北平原农村
+      emoji: "🌽"
+      description: "河南/山东等华北平原农村，粮食种植为主"
+      region: north
+      population_size: village
+      social_features:
+        rural_china: 0.5
+        mechanical_solidarity: 0.4
+        ritual_order: 0.3
+        traditional_action_weight: 0.4
+        community_integration: 0.3
+        face_consciousness: 0.3
+      notable_for: ["小麦产区", "外出务工潮"]
+      associated_theorists: [费孝通, 涂尔干]
+
+    - id: guangdong_village
+      name: 广东农村
+      emoji: "🍚"
+      description: "珠三角边缘农村，靠近城市但保留传统"
+      region: south
+      population_size: village
+      social_features:
+        rural_china: 0.4
+        urbanization: 0.3
+        differential_associate_pattern: 0.3
+        market_oriented: 0.3
+        social_mobility: 0.2
+        stranger_status: 0.2
+      notable_for: ["城中村", "工业区"]
+      associated_theorists: [费孝通, 韦伯]
+
+    - id: western_village
+      name: 西部偏远农村
+      emoji: "🏔"
+      description: "云南/贵州/甘肃等西部偏远农村"
+      region: west
+      population_size: village
+      social_features:
+        rural_china: 0.6
+        mechanical_solidarity: 0.4
+        traditional_action_weight: 0.5
+        cultural_capital: -0.2
+        education_opportunity: -0.2
+        community_integration: 0.5
+        social_mobility: -0.2
+      notable_for: ["脱贫攻坚", "少数民族文化"]
+      associated_theorists: [费孝通, 涂尔干]
+
+# ============================================================
+# 地点特征说明
+# ============================================================
+place_features:
+  description: |
+    出生地影响人物的初始属性和社会化环境：
+    - 城市地区：文化资本较高、场域压力较大、工具理性行动较多、陌生人处境较常见
+    - 农村地区：传统行动较多、社区整合度较高、社会流动性较低、差序格局影响较大
+    - 城镇地区：介于城乡之间，可能有更多市场导向的机会
+
+  region_effects:
+    north: "华北地区，传统礼教影响较深，差序格局明显"
+    east: "东部沿海，商品经济发达，工具理性行动较多"
+    south: "华南地区，商业文化浓厚，宗族观念较强"
+    southwest: "西南地区，文化多样性高，少数民族文化影响"
+    west: "西部地区，传统保留较多，教育机会相对较少"
+
+  population_effects:
+    megacity: "超大城市：高场域压力、高文化资本、高社会流动性、高陌生人比例"
+    large: "大城市：高文化资本、中等场域压力、较好教育机会"
+    medium: "中小城市：中等文化资本、一定场域压力"
+    small: "小城镇：中等社区整合、市场机会开始出现"
+    village: "农村：高社区整合、低流动性、传统行动主导"
