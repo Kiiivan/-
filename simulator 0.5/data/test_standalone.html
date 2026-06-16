@@ -1,0 +1,184 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><style>body{margin:0}#net{width:100%;height:100vh;border:1px solid #ddd}</style><script src="https://unpkg.com/vis-network@9.1.6/standalone/umd/vis-network.min.js"></script></head><body><div id="net"></div><div id="err" style="position:fixed;top:0;left:0;background:red;color:white;padding:5px;"></div><script>document.getElementById("err").innerHTML="Script loaded";(function() {
+        var edgesMeta = {"e0": {"from": "mechanical_solidarity", "to": "organic_solidarity", "fromName": "机械团结", "toName": "有机团结", "fromTheorist": "涂尔干", "toTheorist": "涂尔干", "fromColor": "#e74c3c", "toColor": "#e74c3c", "fromShort": "机械", "toShort": "有机", "relType": "conflict", "relLabel": "相克关系", "relDesc": "这两个社会结构互相矛盾，难以并存，选择时需注意。", "fromConflicts": ["organic_solidarity", "disenchantment", "rationalization", "metropolis"], "fromSynergies": ["cultural_capital_low", "rural_china"], "toConflicts": ["mechanical_solidarity", "rural_china"], "toSynergies": ["rationalization", "field_pressure_high", "risk_society"]}, "e1": {"from": "rationalization", "to": "disenchantment", "fromName": "理性化", "toName": "祛魅", "fromTheorist": "韦伯", "toTheorist": "韦伯", "fromColor": "#3498db", "toColor": "#3498db", "fromShort": "理性化", "toShort": "祛魅", "relType": "synergy", "relLabel": "相生关系", "relDesc": "这两个社会结构互相促进，可以共存并相互强化。", "fromConflicts": ["mechanical_solidarity"], "fromSynergies": ["disenchantment", "metropolis", "organic_solidarity", "disciplinary_power", "risk_society"], "toConflicts": ["mechanical_solidarity"], "toSynergies": ["rationalization"]}, "e2": {"from": "field_pressure_high", "to": "cultural_capital_high", "fromName": "高压场域", "toName": "高文化资本", "fromTheorist": "布迪厄", "toTheorist": "布迪厄", "fromColor": "#9b59b6", "toColor": "#9b59b6", "fromShort": "高压场域", "toShort": "高文化", "relType": "synergy", "relLabel": "相生关系", "relDesc": "这两个社会结构互相促进，可以共存并相互强化。", "fromConflicts": [], "fromSynergies": ["cultural_capital_high", "organic_solidarity", "disciplinary_power", "metropolis"], "toConflicts": ["cultural_capital_low"], "toSynergies": ["field_pressure_high", "disciplinary_power", "metropolis", "risk_society"]}, "e3": {"from": "cultural_capital_high", "to": "cultural_capital_low", "fromName": "高文化资本", "toName": "低文化资本", "fromTheorist": "布迪厄", "toTheorist": "布迪厄", "fromColor": "#9b59b6", "toColor": "#9b59b6", "fromShort": "高文化", "toShort": "低文化", "relType": "conflict", "relLabel": "相克关系", "relDesc": "这两个社会结构互相矛盾，难以并存，选择时需注意。", "fromConflicts": ["cultural_capital_low"], "fromSynergies": ["field_pressure_high", "disciplinary_power", "metropolis", "risk_society"], "toConflicts": ["cultural_capital_high"], "toSynergies": ["mechanical_solidarity"]}, "e4": {"from": "disciplinary_power", "to": "panopticism", "fromName": "规训社会", "toName": "全景敞视", "fromTheorist": "福柯", "toTheorist": "福柯", "fromColor": "#e67e22", "toColor": "#e67e22", "fromShort": "规训", "toShort": "全景", "relType": "synergy", "relLabel": "相生关系", "relDesc": "这两个社会结构互相促进，可以共存并相互强化。", "fromConflicts": [], "fromSynergies": ["panopticism", "rationalization", "field_pressure_high", "cultural_capital_high", "risk_society"], "toConflicts": [], "toSynergies": ["disciplinary_power", "risk_society"]}, "e5": {"from": "metropolis", "to": "stranger_status", "fromName": "大都市", "toName": "陌生人", "fromTheorist": "齐美尔", "toTheorist": "齐美尔", "fromColor": "#1abc9c", "toColor": "#1abc9c", "fromShort": "大都市", "toShort": "陌生人", "relType": "synergy", "relLabel": "相生关系", "relDesc": "这两个社会结构互相促进，可以共存并相互强化。", "fromConflicts": ["mechanical_solidarity", "rural_china"], "fromSynergies": ["stranger_status", "rationalization", "cultural_capital_high", "field_pressure_high", "risk_society"], "toConflicts": ["rural_china"], "toSynergies": ["metropolis", "risk_society"]}, "e6": {"from": "metropolis", "to": "rationalization", "fromName": "大都市", "toName": "理性化", "fromTheorist": "齐美尔", "toTheorist": "韦伯", "fromColor": "#1abc9c", "toColor": "#3498db", "fromShort": "大都市", "toShort": "理性化", "relType": "synergy", "relLabel": "相生关系", "relDesc": "这两个社会结构互相促进，可以共存并相互强化。", "fromConflicts": ["mechanical_solidarity", "rural_china"], "fromSynergies": ["stranger_status", "rationalization", "cultural_capital_high", "field_pressure_high", "risk_society"], "toConflicts": ["mechanical_solidarity"], "toSynergies": ["disenchantment", "metropolis", "organic_solidarity", "disciplinary_power", "risk_society"]}, "e7": {"from": "mechanical_solidarity", "to": "disenchantment", "fromName": "机械团结", "toName": "祛魅", "fromTheorist": "涂尔干", "toTheorist": "韦伯", "fromColor": "#e74c3c", "toColor": "#3498db", "fromShort": "机械", "toShort": "祛魅", "relType": "conflict", "relLabel": "相克关系", "relDesc": "这两个社会结构互相矛盾，难以并存，选择时需注意。", "fromConflicts": ["organic_solidarity", "disenchantment", "rationalization", "metropolis"], "fromSynergies": ["cultural_capital_low", "rural_china"], "toConflicts": ["mechanical_solidarity"], "toSynergies": ["rationalization"]}, "e8": {"from": "mechanical_solidarity", "to": "rationalization", "fromName": "机械团结", "toName": "理性化", "fromTheorist": "涂尔干", "toTheorist": "韦伯", "fromColor": "#e74c3c", "toColor": "#3498db", "fromShort": "机械", "toShort": "理性化", "relType": "conflict", "relLabel": "相克关系", "relDesc": "这两个社会结构互相矛盾，难以并存，选择时需注意。", "fromConflicts": ["organic_solidarity", "disenchantment", "rationalization", "metropolis"], "fromSynergies": ["cultural_capital_low", "rural_china"], "toConflicts": ["mechanical_solidarity"], "toSynergies": ["disenchantment", "metropolis", "organic_solidarity", "disciplinary_power", "risk_society"]}, "e9": {"from": "organic_solidarity", "to": "rationalization", "fromName": "有机团结", "toName": "理性化", "fromTheorist": "涂尔干", "toTheorist": "韦伯", "fromColor": "#e74c3c", "toColor": "#3498db", "fromShort": "有机", "toShort": "理性化", "relType": "synergy", "relLabel": "相生关系", "relDesc": "这两个社会结构互相促进，可以共存并相互强化。", "fromConflicts": ["mechanical_solidarity", "rural_china"], "fromSynergies": ["rationalization", "field_pressure_high", "risk_society"], "toConflicts": ["mechanical_solidarity"], "toSynergies": ["disenchantment", "metropolis", "organic_solidarity", "disciplinary_power", "risk_society"]}, "e10": {"from": "mechanical_solidarity", "to": "cultural_capital_low", "fromName": "机械团结", "toName": "低文化资本", "fromTheorist": "涂尔干", "toTheorist": "布迪厄", "fromColor": "#e74c3c", "toColor": "#9b59b6", "fromShort": "机械", "toShort": "低文化", "relType": "synergy", "relLabel": "相生关系", "relDesc": "这两个社会结构互相促进，可以共存并相互强化。", "fromConflicts": ["organic_solidarity", "disenchantment", "rationalization", "metropolis"], "fromSynergies": ["cultural_capital_low", "rural_china"], "toConflicts": ["cultural_capital_high"], "toSynergies": ["mechanical_solidarity"]}, "e11": {"from": "organic_solidarity", "to": "field_pressure_high", "fromName": "有机团结", "toName": "高压场域", "fromTheorist": "涂尔干", "toTheorist": "布迪厄", "fromColor": "#e74c3c", "toColor": "#9b59b6", "fromShort": "有机", "toShort": "高压场域", "relType": "synergy", "relLabel": "相生关系", "relDesc": "这两个社会结构互相促进，可以共存并相互强化。", "fromConflicts": ["mechanical_solidarity", "rural_china"], "fromSynergies": ["rationalization", "field_pressure_high", "risk_society"], "toConflicts": [], "toSynergies": ["cultural_capital_high", "organic_solidarity", "disciplinary_power", "metropolis"]}, "e12": {"from": "mechanical_solidarity", "to": "rural_china", "fromName": "机械团结", "toName": "乡土社会", "fromTheorist": "涂尔干", "toTheorist": "费孝通", "fromColor": "#e74c3c", "toColor": "#27ae60", "fromShort": "机械", "toShort": "乡土", "relType": "synergy", "relLabel": "相生关系", "relDesc": "这两个社会结构互相促进，可以共存并相互强化。", "fromConflicts": ["organic_solidarity", "disenchantment", "rationalization", "metropolis"], "fromSynergies": ["cultural_capital_low", "rural_china"], "toConflicts": ["organic_solidarity", "risk_society", "metropolis", "stranger_status"], "toSynergies": ["mechanical_solidarity"]}, "e13": {"from": "rural_china", "to": "organic_solidarity", "fromName": "乡土社会", "toName": "有机团结", "fromTheorist": "费孝通", "toTheorist": "涂尔干", "fromColor": "#27ae60", "toColor": "#e74c3c", "fromShort": "乡土", "toShort": "有机", "relType": "conflict", "relLabel": "相克关系", "relDesc": "这两个社会结构互相矛盾，难以并存，选择时需注意。", "fromConflicts": ["organic_solidarity", "risk_society", "metropolis", "stranger_status"], "fromSynergies": ["mechanical_solidarity"], "toConflicts": ["mechanical_solidarity", "rural_china"], "toSynergies": ["rationalization", "field_pressure_high", "risk_society"]}, "e14": {"from": "mechanical_solidarity", "to": "metropolis", "fromName": "机械团结", "toName": "大都市", "fromTheorist": "涂尔干", "toTheorist": "齐美尔", "fromColor": "#e74c3c", "toColor": "#1abc9c", "fromShort": "机械", "toShort": "大都市", "relType": "conflict", "relLabel": "相克关系", "relDesc": "这两个社会结构互相矛盾，难以并存，选择时需注意。", "fromConflicts": ["organic_solidarity", "disenchantment", "rationalization", "metropolis"], "fromSynergies": ["cultural_capital_low", "rural_china"], "toConflicts": ["mechanical_solidarity", "rural_china"], "toSynergies": ["stranger_status", "rationalization", "cultural_capital_high", "field_pressure_high", "risk_society"]}, "e15": {"from": "rationalization", "to": "disciplinary_power", "fromName": "理性化", "toName": "规训社会", "fromTheorist": "韦伯", "toTheorist": "福柯", "fromColor": "#3498db", "toColor": "#e67e22", "fromShort": "理性化", "toShort": "规训", "relType": "synergy", "relLabel": "相生关系", "relDesc": "这两个社会结构互相促进，可以共存并相互强化。", "fromConflicts": ["mechanical_solidarity"], "fromSynergies": ["disenchantment", "metropolis", "organic_solidarity", "disciplinary_power", "risk_society"], "toConflicts": [], "toSynergies": ["panopticism", "rationalization", "field_pressure_high", "cultural_capital_high", "risk_society"]}, "e16": {"from": "rationalization", "to": "risk_society", "fromName": "理性化", "toName": "风险社会", "fromTheorist": "韦伯", "toTheorist": "贝克", "fromColor": "#3498db", "toColor": "#f39c12", "fromShort": "理性化", "toShort": "风险", "relType": "synergy", "relLabel": "相生关系", "relDesc": "这两个社会结构互相促进，可以共存并相互强化。", "fromConflicts": ["mechanical_solidarity"], "fromSynergies": ["disenchantment", "metropolis", "organic_solidarity", "disciplinary_power", "risk_society"], "toConflicts": ["rural_china"], "toSynergies": ["rationalization", "metropolis", "stranger_status", "panopticism", "disciplinary_power", "organic_solidarity", "cultural_capital_high"]}, "e17": {"from": "field_pressure_high", "to": "disciplinary_power", "fromName": "高压场域", "toName": "规训社会", "fromTheorist": "布迪厄", "toTheorist": "福柯", "fromColor": "#9b59b6", "toColor": "#e67e22", "fromShort": "高压场域", "toShort": "规训", "relType": "synergy", "relLabel": "相生关系", "relDesc": "这两个社会结构互相促进，可以共存并相互强化。", "fromConflicts": [], "fromSynergies": ["cultural_capital_high", "organic_solidarity", "disciplinary_power", "metropolis"], "toConflicts": [], "toSynergies": ["panopticism", "rationalization", "field_pressure_high", "cultural_capital_high", "risk_society"]}, "e18": {"from": "cultural_capital_high", "to": "disciplinary_power", "fromName": "高文化资本", "toName": "规训社会", "fromTheorist": "布迪厄", "toTheorist": "福柯", "fromColor": "#9b59b6", "toColor": "#e67e22", "fromShort": "高文化", "toShort": "规训", "relType": "synergy", "relLabel": "相生关系", "relDesc": "这两个社会结构互相促进，可以共存并相互强化。", "fromConflicts": ["cultural_capital_low"], "fromSynergies": ["field_pressure_high", "disciplinary_power", "metropolis", "risk_society"], "toConflicts": [], "toSynergies": ["panopticism", "rationalization", "field_pressure_high", "cultural_capital_high", "risk_society"]}, "e19": {"from": "cultural_capital_high", "to": "metropolis", "fromName": "高文化资本", "toName": "大都市", "fromTheorist": "布迪厄", "toTheorist": "齐美尔", "fromColor": "#9b59b6", "toColor": "#1abc9c", "fromShort": "高文化", "toShort": "大都市", "relType": "synergy", "relLabel": "相生关系", "relDesc": "这两个社会结构互相促进，可以共存并相互强化。", "fromConflicts": ["cultural_capital_low"], "fromSynergies": ["field_pressure_high", "disciplinary_power", "metropolis", "risk_society"], "toConflicts": ["mechanical_solidarity", "rural_china"], "toSynergies": ["stranger_status", "rationalization", "cultural_capital_high", "field_pressure_high", "risk_society"]}, "e20": {"from": "field_pressure_high", "to": "metropolis", "fromName": "高压场域", "toName": "大都市", "fromTheorist": "布迪厄", "toTheorist": "齐美尔", "fromColor": "#9b59b6", "toColor": "#1abc9c", "fromShort": "高压场域", "toShort": "大都市", "relType": "synergy", "relLabel": "相生关系", "relDesc": "这两个社会结构互相促进，可以共存并相互强化。", "fromConflicts": [], "fromSynergies": ["cultural_capital_high", "organic_solidarity", "disciplinary_power", "metropolis"], "toConflicts": ["mechanical_solidarity", "rural_china"], "toSynergies": ["stranger_status", "rationalization", "cultural_capital_high", "field_pressure_high", "risk_society"]}, "e21": {"from": "rural_china", "to": "risk_society", "fromName": "乡土社会", "toName": "风险社会", "fromTheorist": "费孝通", "toTheorist": "贝克", "fromColor": "#27ae60", "toColor": "#f39c12", "fromShort": "乡土", "toShort": "风险", "relType": "conflict", "relLabel": "相克关系", "relDesc": "这两个社会结构互相矛盾，难以并存，选择时需注意。", "fromConflicts": ["organic_solidarity", "risk_society", "metropolis", "stranger_status"], "fromSynergies": ["mechanical_solidarity"], "toConflicts": ["rural_china"], "toSynergies": ["rationalization", "metropolis", "stranger_status", "panopticism", "disciplinary_power", "organic_solidarity", "cultural_capital_high"]}, "e22": {"from": "rural_china", "to": "metropolis", "fromName": "乡土社会", "toName": "大都市", "fromTheorist": "费孝通", "toTheorist": "齐美尔", "fromColor": "#27ae60", "toColor": "#1abc9c", "fromShort": "乡土", "toShort": "大都市", "relType": "conflict", "relLabel": "相克关系", "relDesc": "这两个社会结构互相矛盾，难以并存，选择时需注意。", "fromConflicts": ["organic_solidarity", "risk_society", "metropolis", "stranger_status"], "fromSynergies": ["mechanical_solidarity"], "toConflicts": ["mechanical_solidarity", "rural_china"], "toSynergies": ["stranger_status", "rationalization", "cultural_capital_high", "field_pressure_high", "risk_society"]}, "e23": {"from": "rural_china", "to": "stranger_status", "fromName": "乡土社会", "toName": "陌生人", "fromTheorist": "费孝通", "toTheorist": "齐美尔", "fromColor": "#27ae60", "toColor": "#1abc9c", "fromShort": "乡土", "toShort": "陌生人", "relType": "conflict", "relLabel": "相克关系", "relDesc": "这两个社会结构互相矛盾，难以并存，选择时需注意。", "fromConflicts": ["organic_solidarity", "risk_society", "metropolis", "stranger_status"], "fromSynergies": ["mechanical_solidarity"], "toConflicts": ["rural_china"], "toSynergies": ["metropolis", "risk_society"]}, "e24": {"from": "risk_society", "to": "metropolis", "fromName": "风险社会", "toName": "大都市", "fromTheorist": "贝克", "toTheorist": "齐美尔", "fromColor": "#f39c12", "toColor": "#1abc9c", "fromShort": "风险", "toShort": "大都市", "relType": "synergy", "relLabel": "相生关系", "relDesc": "这两个社会结构互相促进，可以共存并相互强化。", "fromConflicts": ["rural_china"], "fromSynergies": ["rationalization", "metropolis", "stranger_status", "panopticism", "disciplinary_power", "organic_solidarity", "cultural_capital_high"], "toConflicts": ["mechanical_solidarity", "rural_china"], "toSynergies": ["stranger_status", "rationalization", "cultural_capital_high", "field_pressure_high", "risk_society"]}, "e25": {"from": "risk_society", "to": "stranger_status", "fromName": "风险社会", "toName": "陌生人", "fromTheorist": "贝克", "toTheorist": "齐美尔", "fromColor": "#f39c12", "toColor": "#1abc9c", "fromShort": "风险", "toShort": "陌生人", "relType": "synergy", "relLabel": "相生关系", "relDesc": "这两个社会结构互相促进，可以共存并相互强化。", "fromConflicts": ["rural_china"], "fromSynergies": ["rationalization", "metropolis", "stranger_status", "panopticism", "disciplinary_power", "organic_solidarity", "cultural_capital_high"], "toConflicts": ["rural_china"], "toSynergies": ["metropolis", "risk_society"]}, "e26": {"from": "risk_society", "to": "panopticism", "fromName": "风险社会", "toName": "全景敞视", "fromTheorist": "贝克", "toTheorist": "福柯", "fromColor": "#f39c12", "toColor": "#e67e22", "fromShort": "风险", "toShort": "全景", "relType": "synergy", "relLabel": "相生关系", "relDesc": "这两个社会结构互相促进，可以共存并相互强化。", "fromConflicts": ["rural_china"], "fromSynergies": ["rationalization", "metropolis", "stranger_status", "panopticism", "disciplinary_power", "organic_solidarity", "cultural_capital_high"], "toConflicts": [], "toSynergies": ["disciplinary_power", "risk_society"]}, "e27": {"from": "risk_society", "to": "disciplinary_power", "fromName": "风险社会", "toName": "规训社会", "fromTheorist": "贝克", "toTheorist": "福柯", "fromColor": "#f39c12", "toColor": "#e67e22", "fromShort": "风险", "toShort": "规训", "relType": "synergy", "relLabel": "相生关系", "relDesc": "这两个社会结构互相促进，可以共存并相互强化。", "fromConflicts": ["rural_china"], "fromSynergies": ["rationalization", "metropolis", "stranger_status", "panopticism", "disciplinary_power", "organic_solidarity", "cultural_capital_high"], "toConflicts": [], "toSynergies": ["panopticism", "rationalization", "field_pressure_high", "cultural_capital_high", "risk_society"]}, "e28": {"from": "organic_solidarity", "to": "risk_society", "fromName": "有机团结", "toName": "风险社会", "fromTheorist": "涂尔干", "toTheorist": "贝克", "fromColor": "#e74c3c", "toColor": "#f39c12", "fromShort": "有机", "toShort": "风险", "relType": "synergy", "relLabel": "相生关系", "relDesc": "这两个社会结构互相促进，可以共存并相互强化。", "fromConflicts": ["mechanical_solidarity", "rural_china"], "fromSynergies": ["rationalization", "field_pressure_high", "risk_society"], "toConflicts": ["rural_china"], "toSynergies": ["rationalization", "metropolis", "stranger_status", "panopticism", "disciplinary_power", "organic_solidarity", "cultural_capital_high"]}, "e29": {"from": "cultural_capital_high", "to": "risk_society", "fromName": "高文化资本", "toName": "风险社会", "fromTheorist": "布迪厄", "toTheorist": "贝克", "fromColor": "#9b59b6", "toColor": "#f39c12", "fromShort": "高文化", "toShort": "风险", "relType": "synergy", "relLabel": "相生关系", "relDesc": "这两个社会结构互相促进，可以共存并相互强化。", "fromConflicts": ["cultural_capital_low"], "fromSynergies": ["field_pressure_high", "disciplinary_power", "metropolis", "risk_society"], "toConflicts": ["rural_china"], "toSynergies": ["rationalization", "metropolis", "stranger_status", "panopticism", "disciplinary_power", "organic_solidarity", "cultural_capital_high"]}};
+        var STRUCTURE_NAMES_CN = {"mechanical_solidarity": "机械团结", "organic_solidarity": "有机团结", "rationalization": "理性化", "disenchantment": "祛魅", "field_pressure_high": "高压场域", "cultural_capital_high": "高文化资本", "cultural_capital_low": "低文化资本", "disciplinary_power": "规训社会", "panopticism": "全景敞视", "rural_china": "乡土社会", "risk_society": "风险社会", "metropolis": "大都市", "stranger_status": "陌生人"};
+
+        var nodes = new vis.DataSet([
+            {id: "mechanical_solidarity", label: "机械", color: "#e74c3c", font: {color: "#fff", size: 12, face: "Microsoft YaHei", bold: true}, borderWidth: 2, borderWidthSelected: 4, shadow: true},
+            {id: "organic_solidarity", label: "有机", color: "#e74c3c", font: {color: "#fff", size: 12, face: "Microsoft YaHei", bold: true}, borderWidth: 2, borderWidthSelected: 4, shadow: true},
+            {id: "rationalization", label: "理性化", color: "#3498db", font: {color: "#fff", size: 12, face: "Microsoft YaHei", bold: true}, borderWidth: 2, borderWidthSelected: 4, shadow: true},
+            {id: "disenchantment", label: "祛魅", color: "#3498db", font: {color: "#fff", size: 12, face: "Microsoft YaHei", bold: true}, borderWidth: 2, borderWidthSelected: 4, shadow: true},
+            {id: "field_pressure_high", label: "高压场域", color: "#9b59b6", font: {color: "#fff", size: 12, face: "Microsoft YaHei", bold: true}, borderWidth: 2, borderWidthSelected: 4, shadow: true},
+            {id: "cultural_capital_high", label: "高文化", color: "#9b59b6", font: {color: "#fff", size: 12, face: "Microsoft YaHei", bold: true}, borderWidth: 2, borderWidthSelected: 4, shadow: true},
+            {id: "cultural_capital_low", label: "低文化", color: "#9b59b6", font: {color: "#fff", size: 12, face: "Microsoft YaHei", bold: true}, borderWidth: 2, borderWidthSelected: 4, shadow: true},
+            {id: "disciplinary_power", label: "规训", color: "#e67e22", font: {color: "#fff", size: 12, face: "Microsoft YaHei", bold: true}, borderWidth: 2, borderWidthSelected: 4, shadow: true},
+            {id: "panopticism", label: "全景", color: "#e67e22", font: {color: "#fff", size: 12, face: "Microsoft YaHei", bold: true}, borderWidth: 2, borderWidthSelected: 4, shadow: true},
+            {id: "rural_china", label: "乡土", color: "#27ae60", font: {color: "#fff", size: 12, face: "Microsoft YaHei", bold: true}, borderWidth: 2, borderWidthSelected: 4, shadow: true},
+            {id: "risk_society", label: "风险", color: "#f39c12", font: {color: "#fff", size: 12, face: "Microsoft YaHei", bold: true}, borderWidth: 2, borderWidthSelected: 4, shadow: true},
+            {id: "metropolis", label: "大都市", color: "#1abc9c", font: {color: "#fff", size: 12, face: "Microsoft YaHei", bold: true}, borderWidth: 2, borderWidthSelected: 4, shadow: true},
+            {id: "stranger_status", label: "陌生人", color: "#1abc9c", font: {color: "#fff", size: 12, face: "Microsoft YaHei", bold: true}, borderWidth: 2, borderWidthSelected: 4, shadow: true}
+        ]);
+        var edges = new vis.DataSet([
+            {id: 'e0', from: 'mechanical_solidarity', to: 'organic_solidarity', color: {color: '#c0392b', highlight: '#c0392b', opacity: 0.7}, dashes: true, width: 3.4000000000000004, arrows: {to: {enabled: true, scaleFactor: 0.3}}, smooth: {type: 'continuous'},
+            {id: 'e1', from: 'rationalization', to: 'disenchantment', color: {color: '#27ae60', highlight: '#27ae60', opacity: 0.7}, dashes: false, width: 2.8, arrows: {to: {enabled: true, scaleFactor: 0.3}}, smooth: {type: 'continuous'},
+            {id: 'e2', from: 'field_pressure_high', to: 'cultural_capital_high', color: {color: '#27ae60', highlight: '#27ae60', opacity: 0.7}, dashes: false, width: 2.2, arrows: {to: {enabled: true, scaleFactor: 0.3}}, smooth: {type: 'continuous'},
+            {id: 'e3', from: 'cultural_capital_high', to: 'cultural_capital_low', color: {color: '#c0392b', highlight: '#c0392b', opacity: 0.7}, dashes: true, width: 3.4000000000000004, arrows: {to: {enabled: true, scaleFactor: 0.3}}, smooth: {type: 'continuous'},
+            {id: 'e4', from: 'disciplinary_power', to: 'panopticism', color: {color: '#27ae60', highlight: '#27ae60', opacity: 0.7}, dashes: false, width: 3.0999999999999996, arrows: {to: {enabled: true, scaleFactor: 0.3}}, smooth: {type: 'continuous'},
+            {id: 'e5', from: 'metropolis', to: 'stranger_status', color: {color: '#27ae60', highlight: '#27ae60', opacity: 0.7}, dashes: false, width: 2.8, arrows: {to: {enabled: true, scaleFactor: 0.3}}, smooth: {type: 'continuous'},
+            {id: 'e6', from: 'metropolis', to: 'rationalization', color: {color: '#27ae60', highlight: '#27ae60', opacity: 0.7}, dashes: false, width: 2.2, arrows: {to: {enabled: true, scaleFactor: 0.3}}, smooth: {type: 'continuous'},
+            {id: 'e7', from: 'mechanical_solidarity', to: 'disenchantment', color: {color: '#c0392b', highlight: '#c0392b', opacity: 0.7}, dashes: true, width: 2.5, arrows: {to: {enabled: true, scaleFactor: 0.3}}, smooth: {type: 'continuous'},
+            {id: 'e8', from: 'mechanical_solidarity', to: 'rationalization', color: {color: '#c0392b', highlight: '#c0392b', opacity: 0.7}, dashes: true, width: 2.2, arrows: {to: {enabled: true, scaleFactor: 0.3}}, smooth: {type: 'continuous'},
+            {id: 'e9', from: 'organic_solidarity', to: 'rationalization', color: {color: '#27ae60', highlight: '#27ae60', opacity: 0.7}, dashes: false, width: 1.9, arrows: {to: {enabled: true, scaleFactor: 0.3}}, smooth: {type: 'continuous'},
+            {id: 'e10', from: 'mechanical_solidarity', to: 'cultural_capital_low', color: {color: '#27ae60', highlight: '#27ae60', opacity: 0.7}, dashes: false, width: 1.9, arrows: {to: {enabled: true, scaleFactor: 0.3}}, smooth: {type: 'continuous'},
+            {id: 'e11', from: 'organic_solidarity', to: 'field_pressure_high', color: {color: '#27ae60', highlight: '#27ae60', opacity: 0.7}, dashes: false, width: 1.9, arrows: {to: {enabled: true, scaleFactor: 0.3}}, smooth: {type: 'continuous'},
+            {id: 'e12', from: 'mechanical_solidarity', to: 'rural_china', color: {color: '#27ae60', highlight: '#27ae60', opacity: 0.7}, dashes: false, width: 2.8, arrows: {to: {enabled: true, scaleFactor: 0.3}}, smooth: {type: 'continuous'},
+            {id: 'e13', from: 'rural_china', to: 'organic_solidarity', color: {color: '#c0392b', highlight: '#c0392b', opacity: 0.7}, dashes: true, width: 2.2, arrows: {to: {enabled: true, scaleFactor: 0.3}}, smooth: {type: 'continuous'},
+            {id: 'e14', from: 'mechanical_solidarity', to: 'metropolis', color: {color: '#c0392b', highlight: '#c0392b', opacity: 0.7}, dashes: true, width: 2.5, arrows: {to: {enabled: true, scaleFactor: 0.3}}, smooth: {type: 'continuous'},
+            {id: 'e15', from: 'rationalization', to: 'disciplinary_power', color: {color: '#27ae60', highlight: '#27ae60', opacity: 0.7}, dashes: false, width: 2.2, arrows: {to: {enabled: true, scaleFactor: 0.3}}, smooth: {type: 'continuous'},
+            {id: 'e16', from: 'rationalization', to: 'risk_society', color: {color: '#27ae60', highlight: '#27ae60', opacity: 0.7}, dashes: false, width: 1.9, arrows: {to: {enabled: true, scaleFactor: 0.3}}, smooth: {type: 'continuous'},
+            {id: 'e17', from: 'field_pressure_high', to: 'disciplinary_power', color: {color: '#27ae60', highlight: '#27ae60', opacity: 0.7}, dashes: false, width: 2.2, arrows: {to: {enabled: true, scaleFactor: 0.3}}, smooth: {type: 'continuous'},
+            {id: 'e18', from: 'cultural_capital_high', to: 'disciplinary_power', color: {color: '#27ae60', highlight: '#27ae60', opacity: 0.7}, dashes: false, width: 1.9, arrows: {to: {enabled: true, scaleFactor: 0.3}}, smooth: {type: 'continuous'},
+            {id: 'e19', from: 'cultural_capital_high', to: 'metropolis', color: {color: '#27ae60', highlight: '#27ae60', opacity: 0.7}, dashes: false, width: 2.2, arrows: {to: {enabled: true, scaleFactor: 0.3}}, smooth: {type: 'continuous'},
+            {id: 'e20', from: 'field_pressure_high', to: 'metropolis', color: {color: '#27ae60', highlight: '#27ae60', opacity: 0.7}, dashes: false, width: 1.9, arrows: {to: {enabled: true, scaleFactor: 0.3}}, smooth: {type: 'continuous'},
+            {id: 'e21', from: 'rural_china', to: 'risk_society', color: {color: '#c0392b', highlight: '#c0392b', opacity: 0.7}, dashes: true, width: 1.9, arrows: {to: {enabled: true, scaleFactor: 0.3}}, smooth: {type: 'continuous'},
+            {id: 'e22', from: 'rural_china', to: 'metropolis', color: {color: '#c0392b', highlight: '#c0392b', opacity: 0.7}, dashes: true, width: 2.8, arrows: {to: {enabled: true, scaleFactor: 0.3}}, smooth: {type: 'continuous'},
+            {id: 'e23', from: 'rural_china', to: 'stranger_status', color: {color: '#c0392b', highlight: '#c0392b', opacity: 0.7}, dashes: true, width: 2.5, arrows: {to: {enabled: true, scaleFactor: 0.3}}, smooth: {type: 'continuous'},
+            {id: 'e24', from: 'risk_society', to: 'metropolis', color: {color: '#27ae60', highlight: '#27ae60', opacity: 0.7}, dashes: false, width: 2.2, arrows: {to: {enabled: true, scaleFactor: 0.3}}, smooth: {type: 'continuous'},
+            {id: 'e25', from: 'risk_society', to: 'stranger_status', color: {color: '#27ae60', highlight: '#27ae60', opacity: 0.7}, dashes: false, width: 1.9, arrows: {to: {enabled: true, scaleFactor: 0.3}}, smooth: {type: 'continuous'},
+            {id: 'e26', from: 'risk_society', to: 'panopticism', color: {color: '#27ae60', highlight: '#27ae60', opacity: 0.7}, dashes: false, width: 2.2, arrows: {to: {enabled: true, scaleFactor: 0.3}}, smooth: {type: 'continuous'},
+            {id: 'e27', from: 'risk_society', to: 'disciplinary_power', color: {color: '#27ae60', highlight: '#27ae60', opacity: 0.7}, dashes: false, width: 1.9, arrows: {to: {enabled: true, scaleFactor: 0.3}}, smooth: {type: 'continuous'},
+            {id: 'e28', from: 'organic_solidarity', to: 'risk_society', color: {color: '#27ae60', highlight: '#27ae60', opacity: 0.7}, dashes: false, width: 1.9, arrows: {to: {enabled: true, scaleFactor: 0.3}}, smooth: {type: 'continuous'},
+            {id: 'e29', from: 'cultural_capital_high', to: 'risk_society', color: {color: '#27ae60', highlight: '#27ae60', opacity: 0.7}, dashes: false, width: 1.6, arrows: {to: {enabled: true, scaleFactor: 0.3}}, smooth: {type: 'continuous'}
+        ]);
+
+        var container = document.getElementById('network');
+        var data = { nodes: nodes, edges: edges };
+        var options = {
+            nodes: {
+                shape: 'dot',
+                size: 18,
+                borderWidth: 2,
+                shadow: true,
+                color: { background: '#666', border: '#fff', highlight: { background: '#888', border: '#fff' } }
+            },
+            physics: {
+                enabled: true,
+                solver: 'forceAtlas2Based',
+                forceAtlas2Based: {
+                    gravitationalConstant: -50,
+                    centralGravity: 0.01,
+                    springLength: 130,
+                    springConstant: 0.08,
+                    damping: 0.4
+                },
+                stabilization: { iterations: 150 }
+            },
+            interaction: {
+                hover: false,
+                zoomView: true,
+                dragView: true
+            }
+        };
+
+        var network = new vis.Network(container, data, options);
+        var selectedEdgeId = null;
+
+        function getEdgeMetadata(id) { return edgesMeta[id] || null; }
+
+        function tagHtml(arr, type) {
+            if (!arr || !arr.length) return '<span style="color:#bbb;font-size:11px;">无</span>';
+            return arr.map(function(c) {
+                var name = STRUCTURE_NAMES_CN[c] || c;
+                var bg = type === 'conflict' ? '#fde8e8' : '#e8f8f0';
+                var color = type === 'conflict' ? '#c0392b' : '#27ae60';
+                return '<span style="background:' + bg + ';color:' + color + ';padding:1px 6px;border-radius:8px;font-size:11px;">' + name + '</span>';
+            }).join('');
+        }
+
+        function dimAllEdges() {
+            edges.forEach(function(edge) {
+                var m = getEdgeMetadata(edge.id);
+                if (!m) return;
+                var c = m.relType === 'synergy' ? '#27ae60' : '#c0392b';
+                edges.update({ id: edge.id, color: { color: c, highlight: c, opacity: 0.1 }, width: 1 });
+            });
+        }
+
+        function highlightEdge(edgeId) {
+            var m = getEdgeMetadata(edgeId);
+            if (!m) return;
+            var c = m.relType === 'synergy' ? '#27ae60' : '#c0392b';
+            edges.update({ id: edgeId, color: { color: c, highlight: c, opacity: 1 }, width: 3 });
+        }
+
+        function showEdgeInfo(edgeId) {
+            var m = getEdgeMetadata(edgeId);
+            if (!m) return;
+            var relBg = m.relType === 'synergy' ? '#e8f8f0' : '#fde8e8';
+            var relColor = m.relType === 'synergy' ? '#27ae60' : '#c0392b';
+            var strength = Math.abs(m.weight || 0.5) > 0.5 ? '强' : '弱';
+
+            var html =
+                '<div class="panel-title">理论关联详情</div>' +
+                '<div class="theory-card" style="background:' + m.fromColor + '18;border-color:' + m.fromColor + ';">' +
+                '<div class="theory-name">' + m.fromName + '</div>' +
+                '<div class="theory-theorist">' + m.fromTheorist + '</div>' +
+                '<div class="tag-group">矛盾结构：' + tagHtml(m.fromConflicts, 'conflict') + '</div>' +
+                '<div class="tag-group">促进结构：' + tagHtml(m.fromSynergies, 'synergy') + '</div>' +
+                '</div>' +
+                '<div class="relation-badge" style="background:' + relBg + ';color:' + relColor + ';">' +
+                m.relLabel + '（强度' + strength + '）' +
+                '</div>' +
+                '<div class="relation-desc">' + m.relDesc + '</div>' +
+                '<div class="theory-card" style="background:' + m.toColor + '18;border-color:' + m.toColor + ';">' +
+                '<div class="theory-name">' + m.toName + '</div>' +
+                '<div class="theory-theorist">' + m.toTheorist + '</div>' +
+                '<div class="tag-group">矛盾结构：' + tagHtml(m.toConflicts, 'conflict') + '</div>' +
+                '<div class="tag-group">促进结构：' + tagHtml(m.toSynergies, 'synergy') + '</div>' +
+                '</div>';
+
+            document.getElementById('infoPanel').innerHTML = html;
+        }
+
+        function resetPanel() {
+            document.getElementById('infoPanel').innerHTML =
+                '<div class="panel-hint">点击任意连线<br>查看两理论的内容与关联</div>';
+        }
+
+        network.on('click', function(params) {
+            if (!params.edges.length) {
+                if (selectedEdgeId !== null) {
+                    selectedEdgeId = null;
+                    edges.forEach(function(edge) {
+                        var m = getEdgeMetadata(edge.id);
+                        if (!m) return;
+                        var c = m.relType === 'synergy' ? '#27ae60' : '#c0392b';
+                        edges.update({ id: edge.id, color: { color: c, highlight: c, opacity: 0.7 }, width: 1 + Math.abs(m.weight) * 3 });
+                    });
+                }
+                resetPanel();
+                return;
+            }
+
+            var eid = params.edges[0];
+            var m = getEdgeMetadata(eid);
+            if (!m) return;
+
+            if (selectedEdgeId === eid) {
+                selectedEdgeId = null;
+                edges.forEach(function(edge) {
+                    var mm = getEdgeMetadata(edge.id);
+                    if (!mm) return;
+                    var c = mm.relType === 'synergy' ? '#27ae60' : '#c0392b';
+                    edges.update({ id: edge.id, color: { color: c, highlight: c, opacity: 0.7 }, width: 1 + Math.abs(mm.weight) * 3 });
+                });
+                resetPanel();
+                return;
+            }
+
+            selectedEdgeId = eid;
+            dimAllEdges();
+            highlightEdge(eid);
+            showEdgeInfo(eid);
+        });
+    })();
+</script></body></html>

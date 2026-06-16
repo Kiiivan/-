@@ -1,0 +1,9 @@
+Script length: 33644
+edgesMeta JSON starts at: 22
+edgesMeta JSON length: 17635
+STRUCTURE_NAMES_CN starts at: 17657
+nodes starts at: 18051
+edges starts at: 22
+network starts at: 28923
+Last 100 chars:
+'dimAllEdges();\n            highlightEdge(eid);\n            showEdgeInfo(eid);\n        });\n    })();\n'

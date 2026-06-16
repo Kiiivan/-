@@ -1,0 +1,289 @@
+# 社会学人生模拟器 - 社会行动类型定义
+# 基于韦伯的社会行动理论，扩展至其他微观社会学概念
+
+action_types:
+  # ==================== 韦伯：社会行动四类型 ====================
+
+  - id: affective_action
+    name: 情感行动
+    short_name: 情感行动
+    description: 基于情感、激情、情绪爆发的行动，非理性的但仍然是"有意义的"
+    theorist: 韦伯
+    emoji: "💗"
+    weight_factors:
+      anomie_level: 0.3        # 失范状态增加情感行动概率
+      emotional_stability: -0.3  # 情绪稳定性降低情感行动
+      social_isolation: 0.2   # 孤立状态增加情感爆发
+      traditional_action_weight: -0.1  # 传统行动与情感行动有张力
+    event_affinity:
+      education: 0.1   # 较少出现在教育事件
+      career: 0.1
+      family: 0.4      # 家庭事件中情感行动较多
+      critical: 0.5    # 危机事件中情感行动较多
+    examples:
+      - "一见钟情决定结婚"
+      - "因愤怒而冲动辞职"
+      - "悲伤过度而做出极端选择"
+      - "因同情心而帮助陌生人"
+
+  - id: value_rational_action
+    name: 价值理性行动
+    short_name: 价值理性
+    description: 基于信念、道德、价值观的行动，不计后果地坚守某种绝对价值
+    theorist: 韦伯
+    emoji: "⚖️"
+    weight_factors:
+      cultural_capital: 0.3    # 高文化资本者更多价值理性行动
+      education_level: 0.3
+      critical_awareness: 0.3  # 社会学想象力关联
+      anomie_level: -0.1      # 失范状态下价值理性可能增强（反应性）
+    event_affinity:
+      education: 0.3
+      career: 0.3
+      family: 0.1
+      critical: 0.4    # 危机事件中可能出现价值坚守
+      political: 0.5    # 政治参与事件中价值理性主导
+    examples:
+      - "为信仰放弃稳定工作"
+      - "投身社会运动"
+      - "坚持学术理想不计名利"
+      - "为道德信念得罪权贵"
+
+  - id: instrumental_rational_action
+    name: 工具理性行动
+    short_name: 工具理性
+    description: 基于手段-目的计算的行动，追求效率最大化，价值观只是手段
+    theorist: 韦伯
+    emoji: "📊"
+    weight_factors:
+      rationalization: 0.4    # 理性化环境增加工具理性行动
+      economic_capital: 0.2
+      education_level: 0.2
+      metropolis: 0.2         # 大都市增加工具理性
+    event_affinity:
+      education: 0.3    # 选择专业/学校时工具理性
+      career: 0.5       # 职业决策中工具理性主导
+      family: 0.2
+      critical: 0.2
+      economic: 0.5     # 经济决策中工具理性主导
+    examples:
+      - "选择高薪行业而非兴趣"
+      - "计算投资回报率后决定是否深造"
+      - "权衡利弊后决定是否结婚"
+      - "为职业发展而迁移城市"
+
+  - id: traditional_action
+    name: 传统行动
+    short_name: 传统行动
+    description: 基于习惯、传统、惯例的行动，不需要刻意计算，"向来如此"
+    theorist: 韦伯
+    emoji: "🏛️"
+    weight_factors:
+      mechanical_solidarity: 0.4  # 机械团结环境增加传统行动
+      rural_china: 0.3           # 乡土社会增加传统行动
+      ritual_order: 0.3          # 礼治秩序强化传统行动
+      traditional_action_weight: 0.4
+      urbanization: -0.3        # 城市化削弱传统行动
+      individualization: -0.3    # 个体化削弱传统行动
+    event_affinity:
+      education: 0.2
+      career: 0.2
+      family: 0.5      # 家庭事件中传统行动较多（包办婚姻等）
+      critical: 0.1
+      inheritance: 0.5  # 继承相关事件中传统行动主导
+    examples:
+      - "遵从家族安排的职业"
+      - "按照习俗举办的婚礼"
+      - "继承父辈的农场/店铺"
+      - "因传统观念而压抑个人需求"
+
+  # ==================== 扩展：布迪厄相关行动 ====================
+
+  - id: habitus_guided_action
+    name: 惯习引导行动
+    short_name: 惯习行动
+    description: 不经过刻意计算，"自然而然"做出符合阶层位置的行动——惯习是结构化的结构
+    theorist: 布迪厄
+    emoji: "🎩"
+    weight_factors:
+      cultural_capital: 0.3
+      education_level: 0.2
+      class_background: 0.4    # 阶层背景越强，惯习越稳固
+      field_pressure: 0.2     # 高场域压力下惯习更容易显现
+    event_affinity:
+      education: 0.4    # 教育选择中惯习影响大（文化资本）
+      career: 0.3
+      consumption: 0.5   # 消费品味事件中惯习主导
+    examples:
+      - "工薪阶层孩子'自然'觉得不该花太多钱读书"
+      - "中产家庭孩子'自然'熟悉博物馆和音乐会"
+      - "不假思索地选择'适合自己'的消费方式"
+
+  - id: capital_competition
+    name: 资本竞争行动
+    short_name: 资本竞争
+    description: 在场域中争夺资本（经济、文化、社会符号）的行动，目标是改善或维持位置
+    theorist: 布迪厄
+    emoji: "🏆"
+    weight_factors:
+      field_pressure: 0.4
+      economic_capital: 0.2
+      cultural_capital: 0.2
+      social_mobility: 0.2   # 向上流动欲望激发资本竞争
+    event_affinity:
+      education: 0.5    # 教育竞争事件
+      career: 0.5      # 职业竞争事件
+      consumption: 0.3  # 品味竞争事件
+    examples:
+      - "拼命考取名校"
+      - "为晋升而努力表现"
+      - "通过消费展示品味以获取符号资本"
+      - "建立人脉网络以获取社会资本"
+
+  # ==================== 扩展：戈夫曼相关行动 ====================
+
+  - id: impression_management_action
+    name: 印象管理行动
+    short_name: 印象管理
+    description: 刻意控制他人对自己的印象，包括遮掩、理想化、误导等策略
+    theorist: 戈夫曼
+    emoji: "🎭"
+    weight_factors:
+      impression_management: 0.4
+      disciplinary_power: 0.3
+      front_back_region: 0.3
+      surveillance_level: 0.3   # 高监视环境下印象管理更活跃
+      digital_surveillance: 0.3
+    event_affinity:
+      career: 0.3      # 职场面试/升职中的印象管理
+      social: 0.5     # 社交场合的印象管理
+      digital: 0.4    # 社交媒体上的印象管理
+    examples:
+      - "求职时展示精心构建的简历形象"
+      - "在朋友圈只展示'精彩生活'"
+      - "面试时调整自己的言行风格"
+      - "在社交场合掩饰真实情绪"
+
+  - id: backstage_relaxation
+    name: 后台放松行动
+    short_name: 后台放松
+    description: 在前台表演受抑制的区域（后台）放松控制，恢复"真实"自我
+    theorist: 戈夫曼
+    emoji: "🛋️"
+    weight_factors:
+      impression_management_society: -0.2  # 印象管理社会越强，后台越需要
+      social_isolation: 0.2
+      surveillance_level: 0.2
+      stress_level: 0.3    # 高压力需要后台放松
+    event_affinity:
+      family: 0.3      # 家庭可能是后台区域
+      intimate: 0.4    # 亲密关系中的放松
+      privacy: 0.3    # 隐私行为
+    examples:
+      - "回家后卸下职场面具"
+      - "独处时放纵自己"
+      - "与密友相处时不用表演"
+      - "私下发表与公开立场相反的观点"
+
+  # ==================== 扩展：齐美尔相关行动 ====================
+
+  - id: blasé_attitude_action
+    name: 冷漠厌倦行动
+    short_name: 冷漠态度
+    description: 都市人对过量刺激的防御性冷漠，对一切都无动于衷，分辨不过来所以麻木
+    theorist: 齐美尔
+    emoji: "😶"
+    weight_factors:
+      metropolis: 0.4
+      blasé_attitude: 0.4
+      rationalization: 0.2
+      information_overload: 0.3
+    event_affinity:
+      social: 0.3
+      emotional: 0.4    # 情感事件中可能表现为冷漠
+      community: 0.2
+    examples:
+      - "对身边的人和事漠不关心"
+      - "对社会不公无动于衷"
+      - "对亲密关系保持距离"
+      - "以'无所谓'态度应对压力"
+
+  - id: stranger_objectification
+    name: 陌生人客观化
+    short_name: 陌生人视角
+    description: 以"客观"眼光看待周围人——因为没有利害关系，能看到内部人看不见的东西
+    theorist: 齐美尔
+    emoji: "👁️"
+    weight_factors:
+      stranger_status: 0.4
+      social_isolation: 0.3
+      metropolis: 0.2
+      objectification: 0.3
+    event_affinity:
+      social: 0.4
+      professional: 0.3
+      critical: 0.2
+    examples:
+      - "以外来者视角批判本地文化"
+      - "对熟悉的游戏规则保持距离"
+      - "客观分析人际利益关系"
+      - "在不属于自己的位置上保持清醒"
+
+  # ==================== 扩展：其他微观行动 ====================
+
+  - id: anomie_action
+    name: 失范行动
+    short_name: 失范行动
+    description: 社会规范缺失或混乱状态下的行动，个人欲望失去约束，可能走向越轨或极端
+    theorist: 涂尔干
+    emoji: "⚡"
+    weight_factors:
+      anomie_level: 0.5
+      social_mobility_disrupted: 0.3
+      institutional_trust: -0.3
+      risk_society: 0.2
+    event_affinity:
+      critical: 0.5    # 危机事件中失范行动可能出现
+      deviant: 0.5     # 越轨事件中失范行动主导
+      economic: 0.3     # 经济失范（赌博、投机）
+    examples:
+      - "失业后沉迷赌博"
+      - "经济危机中自杀"
+      - "社会剧变期的极端行为"
+      - "规范缺失下的迷失和冲动"
+
+  - id: boundary_transgression
+    name: 越轨行动
+    short_name: 越轨
+    description: 违反群体规范的行动，可能是创新也可能是偏差，取决于社会反应
+    theorist: 默顿/涂尔干
+    emoji: "🚧"
+    weight_factors:
+      anomie_level: 0.3
+      field_pressure: 0.3
+      cultural_capital: -0.2  # 高文化资本提供更多合法化手段
+      social_mobility: 0.2
+    event_affinity:
+      deviant: 0.5
+      education: 0.2
+      career: 0.2
+      critical: 0.3
+    examples:
+      - "考试作弊"
+      - "职场中的灰色手段"
+      - "绕过规则的创新做法"
+      - "政治敏感的越轨行为"
+
+# ============================================================
+# 行动类型权重计算说明
+# ============================================================
+weight_calculation: |
+  每种行动类型的最终权重 = 基础权重 + Σ(相关结构参数 × 权重系数)
+
+  示例计算（情感行动）：
+  base_weight = 0.2
+  + (anomie_level × 0.3) = 0.15  (if anomie_level = 0.5)
+  + (social_isolation × 0.2) = 0.1  (if social_isolation = 0.5)
+  最终情感行动权重 = 0.45
+
+  权重归一化后用于事件抽样。
