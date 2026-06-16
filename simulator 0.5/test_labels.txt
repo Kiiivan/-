@@ -1,5 +1,0 @@
-label: "机械"
-label: "有机"
-label: "理性化"
-label: "祛魅"
-label: "高压场域"

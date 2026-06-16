@@ -1,4 +1,0 @@
-e0 fn: 机械团结
-e0 tn: 有机团结
-e0 ta: 涂尔干
-e0 rt: conflict

@@ -1,3 +1,0 @@
-fromName: 机械团结
-toName: 有机团结
-relType: conflict

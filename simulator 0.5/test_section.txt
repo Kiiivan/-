@@ -1,3 +1,0 @@
-var nodes = new vis.DataSet([
-            {id: "mechanical_solidarity", label: "机械", color: "#e74c3c", font: {color: "#fff", size: 12, face: "Microsoft YaHei", bold: true}, borderWidth: 2, borderWidthSelected: 4, shadow: true},
-            {id: "organic_solidarity", label: "有机", color: "#e74c3c", fo
