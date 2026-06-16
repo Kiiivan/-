@@ -1,5 +1,0 @@
-pos 17254: char='机' context='y",label:"机械",color:"#e74c3c",'
-pos 17255: char='械' context='",label:"机械",color:"#e74c3c",f'
-pos 17416: char='有' context='y",label:"有机",color:"#e74c3c",'
-pos 17417: char='机' context='",label:"有机",color:"#e74c3c",f'
-pos 17575: char='理' context='n",label:"理性化",color:"#3498db"'

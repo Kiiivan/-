@@ -1,4 +1,0 @@
-   <div id="network"></div>
-            <div class="legend-fixed">
-                <div class="legend-row">
-            

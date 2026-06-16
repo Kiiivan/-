@@ -1,8 +1,0 @@
-JSON valid, edgesMeta keys: 30
-e0 fromName: 机械团结
-e0 toName: 有机团结
-e0 fromTheorist: 涂尔干
-e0 toTheorist: 涂尔干
-Nodes snippet: var nodes = new vis.DataSet([
-            {id: "mechanical_solidarity", label: "机械", color: "#e74c3c", font: {color: "#fff", size: 12, face: "Microsoft YaHei", bold: true}, borderWidth: 2, borderWidthSelected: 4, shadow: true},
-            {id: "organic_solidarity", label: "有机", color: "#e74c3c", fo

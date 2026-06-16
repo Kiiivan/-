@@ -1,4 +1,0 @@
-emoji repr: '🔗'
-emoji bytes: f09f9497
-ord: 0x1f517
-JSON: {"emoji": "🔗"}
